@@ -1,29 +1,18 @@
-package com.thetminko.gettogether.repository.model;
+package com.thetminko.gettogether.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
  * Created by developer on 11/6/16.
  */
-
-@Entity
-@Table
-public class User implements Serializable {
-  private static final long serialVersionUID = -2253338676290772048L;
+public class UserBean implements Serializable{
+  private static final long serialVersionUID = 4681254730478254866L;
   private long id;
   private String uuid;
   private String firstName;
@@ -36,8 +25,7 @@ public class User implements Serializable {
   private int postalCode;
   private String fbUserId;
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @NotEmpty
   public long getId() {
     return id;
   }
@@ -46,7 +34,6 @@ public class User implements Serializable {
     this.id = id;
   }
 
-  @Column(nullable = false, length = 30)
   public String getUuid() {
     return uuid;
   }
@@ -55,7 +42,7 @@ public class User implements Serializable {
     this.uuid = uuid;
   }
 
-  @Column(nullable = false, length = 100)
+  @NotEmpty
   public String getFirstName() {
     return firstName;
   }
@@ -64,7 +51,7 @@ public class User implements Serializable {
     this.firstName = firstName;
   }
 
-  @Column(nullable = false, length = 100)
+  @NotEmpty
   public String getLastName() {
     return lastName;
   }
@@ -73,7 +60,7 @@ public class User implements Serializable {
     this.lastName = lastName;
   }
 
-  @Column(length = 10)
+  @NotEmpty
   public String getGender() {
     return gender;
   }
@@ -82,9 +69,7 @@ public class User implements Serializable {
     this.gender = gender;
   }
 
-  @JsonSerialize(using = LocalDateSerializer.class)
-  @JsonDeserialize(using = LocalDateDeserializer.class)
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
+  @DateTimeFormat(pattern = "dd/MM/yyyy")
   public LocalDate getDateOfBirth() {
     return dateOfBirth;
   }
@@ -93,7 +78,7 @@ public class User implements Serializable {
     this.dateOfBirth = dateOfBirth;
   }
 
-  @Column(length = 200)
+  @Email
   public String getEmail() {
     return email;
   }
@@ -102,7 +87,7 @@ public class User implements Serializable {
     this.email = email;
   }
 
-  @Column(nullable = false, length = 15)
+  @NotEmpty
   public String getContactNo() {
     return contactNo;
   }
@@ -111,7 +96,6 @@ public class User implements Serializable {
     this.contactNo = contactNo;
   }
 
-  @Column
   public String getAddress() {
     return address;
   }
@@ -120,7 +104,6 @@ public class User implements Serializable {
     this.address = address;
   }
 
-  @Column
   public int getPostalCode() {
     return postalCode;
   }
@@ -129,32 +112,11 @@ public class User implements Serializable {
     this.postalCode = postalCode;
   }
 
-  @Column
   public String getFbUserId() {
     return fbUserId;
   }
 
   public void setFbUserId(String fbUserId) {
     this.fbUserId = fbUserId;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    User user = (User) o;
-
-    return uuid.equals(user.uuid);
-
-  }
-
-  @Override
-  public int hashCode() {
-    return uuid.hashCode();
   }
 }

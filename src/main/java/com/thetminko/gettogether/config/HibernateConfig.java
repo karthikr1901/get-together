@@ -25,21 +25,18 @@ import javax.sql.DataSource;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false)
 @DependsOn("hazelcastInstance")
-@EnableJpaRepositories("com.cab.repository")
+@EnableJpaRepositories("com.thetminko.gettogether.repository")
 public class HibernateConfig {
 
   private String hibernateAuto = "create-drop";
 
-  private String
-      hibernateCacheRegionFactoryClass =
-      "com.hazelcast.hibernate.HazelcastCacheRegionFactory";
+  private String hibernateCacheRegionFactoryClass = "com.hazelcast.hibernate.HazelcastCacheRegionFactory";
 
   private String hibnernateDialect = "org.hibernate.dialect.MySQLDialect";
 
   private String driverClassName = "com.mysql.jdbc.Driver";
 
-  private String
-      datasourceUrl =
+  private String datasourceUrl =
       "jdbc:mysql://localhost:3306/Get-Together?characterEncoding=UTF-8&autoReconnect=true&useSSL=false";
 
   private String datasourceUserName = "root";
