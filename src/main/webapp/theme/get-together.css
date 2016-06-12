@@ -1086,7 +1086,8 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-  font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+  font-family: "Raleway";
   font-size: 15px;
   line-height: 1.42857143;
   color: #2c3e50;
@@ -7041,7 +7042,13 @@ a.list-group-item-danger.active:focus {
   min-height: calc(100vh - 7px);
 }
 
-#login-box{
+#wrapper{
   display: table-cell;
   vertical-align: middle;
+}
+
+#login-body{
+  border: 1px solid rgba(128, 128, 128, 0.57);
+  border-radius: 5px;
+  padding: 50px;
 }

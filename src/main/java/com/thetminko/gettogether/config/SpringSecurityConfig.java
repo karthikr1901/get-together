@@ -46,12 +46,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   public void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().antMatchers("/js/**", "/theme/**", "/font-awesome/**", "/", "/login", "/logout")
         .permitAll()
-        .antMatchers("/**").hasAnyAuthority("GET-TOGETHER-AUTH-USER")
+        .antMatchers("/**").hasAnyAuthority("AUTH_USER")
         .anyRequest().authenticated();
 
     http
         .formLogin().loginPage("/login").defaultSuccessUrl("/home")
-        .failureUrl("/login?error")
+        .failureUrl("/login?error=true")
         .usernameParameter("username")
         .passwordParameter("password")
         .permitAll().and()

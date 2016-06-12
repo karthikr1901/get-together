@@ -89,7 +89,7 @@ public class SpringMvcConfig extends WebMvcConfigurerAdapter {
   @Bean(name = "messageSource")
   public ReloadableResourceBundleMessageSource getMessageSource() {
     ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
-    resource.setBasenames("classpath:messages","classpath:ValidationMessages", "classpath:message-us");
+    resource.setBasenames("classpath:messages","classpath:ValidationMessages");
     resource.setDefaultEncoding("UTF-8");
     return resource;
   }

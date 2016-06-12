@@ -8,12 +8,18 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -35,6 +41,8 @@ public class User implements Serializable {
   private String address;
   private int postalCode;
   private String fbUserId;
+  private UserCredential userCredential;
+  private List<Permission> permissions;
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +54,7 @@ public class User implements Serializable {
     this.id = id;
   }
 
-  @Column(nullable = false, length = 30)
+  @Column(nullable = false, length = 100)
   public String getUuid() {
     return uuid;
   }
@@ -82,6 +90,7 @@ public class User implements Serializable {
     this.gender = gender;
   }
 
+  @Column
   @JsonSerialize(using = LocalDateSerializer.class)
   @JsonDeserialize(using = LocalDateDeserializer.class)
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd")
@@ -136,6 +145,30 @@ public class User implements Serializable {
 
   public void setFbUserId(String fbUserId) {
     this.fbUserId = fbUserId;
+  }
+
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "user")
+  public UserCredential getUserCredential() {
+    return userCredential;
+  }
+
+  public void setUserCredential(UserCredential userCredential) {
+    this.userCredential = userCredential;
+  }
+
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "UserPermission", joinColumns = {
+      @JoinColumn(name = "userId",referencedColumnName = "id")
+  }, inverseJoinColumns = {
+      @JoinColumn(name = "permissionId", referencedColumnName = "id")
+  })
+  public List<Permission> getPermissions() {
+    return permissions;
+  }
+
+  public void setPermissions(
+      List<Permission> permissions) {
+    this.permissions = permissions;
   }
 
   @Override
