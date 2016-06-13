@@ -25,9 +25,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Value("${security.enable.csrf}")
-  private boolean enableCsrf = true;
-
   @Autowired
   private CustomAuthenticationProvider customAuthenticationProvider;
 
@@ -59,11 +56,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         .logout().clearAuthentication(true).deleteCookies("JSESSIONID").invalidateHttpSession(true)
         .logoutUrl("/logout").logoutSuccessUrl("/login?logout");
 
-    if (enableCsrf) {
-      http.csrf();
-    } else {
-      http.csrf().disable();
-    }
+    http.csrf().ignoringAntMatchers("/api/**");
 
     http
         .sessionManagement().invalidSessionUrl("/login?invalidSession")
