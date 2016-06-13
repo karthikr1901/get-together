@@ -5,7 +5,7 @@ package com.thetminko.gettogether.common;
  */
 public class Constants {
   // API
-  public static final String API_URL = "/api";
+  public static final String API_URL = "/api/docs";
   public static final String API_PAGE = "api";
 
   // Login
